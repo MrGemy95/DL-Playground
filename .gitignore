@@ -3,3 +3,4 @@
 *.gz
 data/*
 model/
+TF/MNIST_data/
