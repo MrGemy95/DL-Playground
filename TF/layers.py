@@ -2,31 +2,38 @@ import tensorflow as tf
 from tensorflow.contrib.layers.python.layers import initializers
 
 
-# using https://github.com/devsisters/DQN-tensorflow/blob/master/dqn/ops.py
+
+
+
+
+
+
 
 def conv(x,
-           output_dim,
-           kernel_size,
-           stride,
-           initializer=tf.contrib.layers.xavier_initializer(),
-           activation_fn=tf.nn.relu,
-           padding='VALID',
-           name='conv'):
+         num_filters,
+         kernel_size,
+         stride,
+         initializer=tf.contrib.layers.xavier_initializer(),
+         activation_fn=tf.nn.relu,return_params=False,
+         padding='VALID',
+         name='conv'):
     with tf.variable_scope(name):
-        stride = [1, stride[0], stride[1], 1]
-        kernel_shape = [kernel_size[0], kernel_size[1], x.get_shape()[-1], output_dim]
+        stride = [ stride[0], stride[1]]
+        kernel_shape = [kernel_size[0], kernel_size[1], x.get_shape()[-1], num_filters]
 
         w = tf.get_variable('w', kernel_shape, tf.float32, initializer=initializer)
-        conv = tf.nn.convolution(x, w, stride, padding)
+        print(stride)
+        conv = tf.nn.convolution(x, w, padding,stride)
 
-        b = tf.get_variable('biases', [output_dim], initializer=tf.constant_initializer(0.0))
+        b = tf.get_variable('biases', [num_filters], initializer=tf.constant_initializer(0.0))
         out = tf.nn.bias_add(conv, b)
 
     if activation_fn != None:
         out = activation_fn(out)
-
-    return out, w, b
-
+    if return_params:
+        return out, w, b
+    else:
+        return out
 def max_pool(x,
            kernel_size,
            stride,
@@ -43,18 +50,22 @@ def flatten(x):
 
 def dropout():
     pass
-def dense(input_, output_dim, stddev=0.02, bias_start=0.0, activation_fn=None, name='dense'):
+
+def dense(input_, num_units, activation_fn=None, w_initializer= tf.contrib.layers.xavier_initializer(),
+          b_initializer= tf.constant_initializer(0.0),return_params=False, name='dense'):
     shape = input_.get_shape().as_list()
 
     with tf.variable_scope(name):
-        w = tf.get_variable('w', [shape[1], output_dim], tf.float32,
-                            tf.random_normal_initializer(stddev=stddev))
-        b = tf.get_variable('bias', [output_dim],
-                            initializer=tf.constant_initializer(bias_start))
+        w = tf.get_variable('w', [shape[1], num_units], tf.float32,
+                            initializer=w_initializer)
+        b = tf.get_variable('bias', [num_units],
+                            initializer=b_initializer)
 
         out = tf.nn.bias_add(tf.matmul(input_, w), b)
 
         if activation_fn != None:
-            return activation_fn(out), w, b
-        else:
+            out = activation_fn(out)
+        if return_params:
             return out, w, b
+        else:
+            return out
