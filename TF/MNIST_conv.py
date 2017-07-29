@@ -38,5 +38,4 @@ for i in range(20000):
         print("step %d, training accuracy %g" % (i, train_accuracy))
     sess.run(train_step, feed_dict={x: batch_x, y: batch_y})
 
-print("test accuracy %g" %  sess.run(accuracy, feed_dict={
-    x: mnist.test.images, y: mnist.test.labels}))
+print("Test Acc : ",sess.run(accuracy, feed_dict={x: mnist.test.images, y: mnist.test.labels}), "% \nExpected to get around 94-98% Acc")
