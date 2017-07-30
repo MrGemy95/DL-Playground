@@ -9,6 +9,20 @@ from tensorflow.contrib.layers.python.layers import initializers
 
 
 
+def lstm(x,num_units,time_steps,output_dim):
+    x = tf.unstack(x, time_steps , 1)
+    print(x.get_shape())
+    lstm_cell = tf.contrib.rnn.BasicLSTMCell(num_units, forget_bias=1.0)
+    outputs, states = tf.nn.static_rnn(lstm_cell, x, dtype=tf.float32)
+
+    print (outputs ,states)  #test
+    print (outputs[-1])  #test
+
+    return outputs, states        #return all output and states
+
+
+
+
 def conv(x,
          num_filters,
          kernel_size,
