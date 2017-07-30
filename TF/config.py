@@ -1,11 +1,13 @@
 
 
+class BaseConfig:
+    adam_lr=1e-4
 
-class ConvConfig:
-    pass
+class ConvConfig():
+    n_epochs=5
+    nit_epoch=1000
 
-
-class Experiment1(ConvConfig):
+class Experiment1(BaseConfig,ConvConfig):
     pass
 
 
