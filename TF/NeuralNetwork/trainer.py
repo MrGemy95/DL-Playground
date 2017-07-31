@@ -3,9 +3,9 @@ import tensorflow as tf
 from TF.base_train import Trainer
 from tqdm import tqdm
 
-class ConvTrainer(Trainer):
+class NeuralTrainer(Trainer):
     def __init__(self,sess, model, config,FLAGS):
-        super(ConvTrainer,self).__init__(sess,model, config,FLAGS)
+        super(NeuralTrainer,self).__init__(sess,model, config,FLAGS)
 
 
     def train(self):

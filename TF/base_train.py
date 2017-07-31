@@ -4,11 +4,11 @@ import tensorflow as tf
 
 
 class Trainer:
-    def __init__(self,model,config,sess):
-        self._model=model
-        self._config=config
+    def __init__(self,sess,model,config,FLAGS):
+        self.model=model
+        self.config=config
         self.sess=sess
-
+        self.FLAGS=FLAGS
         self.cur_epoch_tensor = None
         self.cur_epoch_input = None
         self.cur_epoch_assign_op = None
@@ -18,7 +18,7 @@ class Trainer:
 
         self.summary_placeholders = {}
         self.summary_ops = {}
-        self.scalar_summary_tags = self.params.scalar_summary_tags
+        self.scalar_summary_tags = self.config.scalar_summary_tags
 
         # init the global step , the current epoch and the summaries
         self.init_global_step()
@@ -29,17 +29,18 @@ class Trainer:
         self.init = tf.group(tf.global_variables_initializer(), tf.local_variables_initializer())
         self.sess.run(self.init)
 
-        self.saver = tf.train.Saver(max_to_keep=self._config.max_to_keep)
-        self.summary_writer = tf.summary.FileWriter(self._config.summary_dir, self.sess.graph)
+        self.saver = tf.train.Saver(max_to_keep=self.config.max_to_keep)
+        self.summary_writer = tf.summary.FileWriter(self.config.summary_dir, self.sess.graph)
 
-
+        if self.config.load:
+            self.load()
 
     def save(self):
-        self.saver.save(self.sess, self._config.checkpoint_dir, self.global_step_tensor)
+        self.saver.save(self.sess, self.config.checkpoint_dir, self.global_step_tensor)
         print("Model saved")
 
     def load(self):
-        latest_checkpoint = tf.train.latest_checkpoint(self._config.checkpoint_dir)
+        latest_checkpoint = tf.train.latest_checkpoint(self.config.checkpoint_dir)
         if latest_checkpoint:
             print("Loading model checkpoint {} ...\n".format(latest_checkpoint))
             self.saver.restore(self.sess, latest_checkpoint)
