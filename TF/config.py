@@ -17,6 +17,13 @@ class NeuralConfig(BaseConfig):
     nit_epoch=1000
     adam_lr=1e-4
     batch_size=32
+class LstmConfig(BaseConfig):
+    n_steps=28
+    state_size=28
+    n_epochs=20
+    nit_epoch=1000
+    adam_lr=1e-4
+    batch_size=32
 class Experiment1(ConvConfig):
     pass 
 

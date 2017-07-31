@@ -9,16 +9,18 @@ from tensorflow.contrib.layers.python.layers import initializers
 
 
 
-def lstm(x,num_units,time_steps,output_dim):
-    x = tf.unstack(x, time_steps , 1)
-    print(x.get_shape())
-    lstm_cell = tf.contrib.rnn.BasicLSTMCell(num_units, forget_bias=1.0)
-    outputs, states = tf.nn.static_rnn(lstm_cell, x, dtype=tf.float32)
+def lstm(x,num_units,time_steps,name='lstm',return_states=False):
+    with tf.name_scope(name):
+        x = tf.unstack(x, time_steps , 1)
+        lstm_cell = tf.contrib.rnn.BasicLSTMCell(num_units, forget_bias=1.0)
+        outputs, states = tf.nn.static_rnn(lstm_cell, x, dtype=tf.float32)
 
-    print (outputs ,states)  #test
-    print (outputs[-1])  #test
+        print (outputs ,states)  #test
+        print (outputs[-1])  #test
+        if return_states:
+            return outputs,states #return all output and states
 
-    return outputs, states        #return all output and states
+        return outputs
 
 
 
