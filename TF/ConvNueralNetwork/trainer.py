@@ -7,7 +7,7 @@ class ConvTrainer(Trainer):
     def __init__(self, model, config,sess):
         super(ConvTrainer).init(model, config,sess)
 
-
+           
     def train(self):
 
         # training
