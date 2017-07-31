@@ -8,7 +8,7 @@ class ConvConfig():
     nit_epoch=1000
 
 class Experiment1(BaseConfig,ConvConfig):
-    pass
+    pass 
 
 
 
