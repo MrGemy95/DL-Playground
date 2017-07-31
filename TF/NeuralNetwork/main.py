@@ -2,7 +2,7 @@ import tensorflow as tf
 from TF.NeuralNetwork.model import NeuralModel
 from TF.config import NeuralConfig
 from TF.utils import create_dirs
-from TF.ConvNueralNetwork.trainer import ConvTrainer
+from TF.NeuralNetwork.trainer import NeuralTrainer
 
 tf.logging.set_verbosity(tf.logging.INFO)
 
@@ -20,7 +20,7 @@ def main(_):
 
     sess = tf.Session()
 
-    trainer = ConvTrainer(sess, model,config, FLAGS)
+    trainer = NeuralTrainer(sess, model,config, FLAGS)
 
     trainer.train()
 

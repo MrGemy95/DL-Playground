@@ -15,18 +15,20 @@ class NeuralModel(BaseModel):
         # define the placeholder to pass the data and the ground_truth
         self.is_training = tf.placeholder(tf.bool)
 
-        x = tf.placeholder(tf.float32, [None, 784])
-        y = tf.placeholder(tf.float32, [None, 10])
-        d1 = dense(x, num_units=1000, name="dense1")
-        d2 = dense(d1, num_units=500, name="dense2")
-        d3 = dense(d2, num_units=10, name="dense3")
+        self.x = tf.placeholder(tf.float32, shape=[None, 784])
+        self.y = tf.placeholder(tf.float32, shape=[None, 10])
+        d1 = dense(self.x, num_units=512, name="dense2")
+        d2 = dense(d1, num_units=512, name="dense2")
+        d3 = dense(d2, num_units=256, name="dense3")
+        d4 = dense(d3, num_units=128, name="dense4")
+        d5 = dense(d4, num_units=10, name="dense5")
 
         # loss
         with tf.name_scope("loss"):
 
-            self.cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=self.y, logits=d3))
+            self.cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=self.y, logits=d5))
             self.train_step = tf.train.AdamOptimizer(self._config.adam_lr).minimize(self.cross_entropy)
-            correct_prediction = tf.equal(tf.argmax(d2, 1), tf.argmax(self.y, 1))
+            correct_prediction = tf.equal(tf.argmax(d5, 1), tf.argmax(self.y, 1))
             self.accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
 

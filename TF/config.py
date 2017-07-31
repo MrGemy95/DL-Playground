@@ -6,14 +6,14 @@ class BaseConfig:
     checkpoint_dir = './summaries/'
     summary_dir= './summaries/'
     max_to_keep=5
-    load=False
+    load=True
 class ConvConfig(BaseConfig):
-    n_epochs=5
+    n_epochs=20
     nit_epoch=1000
     adam_lr=1e-4
     batch_size=32
 class NeuralConfig(BaseConfig):
-    n_epochs=5
+    n_epochs=20
     nit_epoch=1000
     adam_lr=1e-4
     batch_size=32
