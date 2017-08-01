@@ -1,8 +1,8 @@
 import tensorflow as tf
-from TF.NeuralNetwork.model import NeuralModel
-from TF.config import NeuralConfig
-from TF.utils import create_dirs
-from TF.NeuralNetwork.trainer import NeuralTrainer
+from Tensorflow.NeuralNetwork.model import NeuralModel
+from Tensorflow.config import NeuralConfig
+from Tensorflow.utils import create_dirs
+from Tensorflow.NeuralNetwork.trainer import NeuralTrainer
 
 tf.logging.set_verbosity(tf.logging.INFO)
 

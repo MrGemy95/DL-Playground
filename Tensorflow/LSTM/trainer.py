@@ -1,6 +1,6 @@
 import numpy as np
 import tensorflow as tf
-from TF.base_train import Trainer
+from Tensorflow.base_train import Trainer
 from tqdm import tqdm
 
 class LstmTrainer(Trainer):
@@ -18,6 +18,7 @@ class LstmTrainer(Trainer):
             for it in loop:
                 batch_x, batch_y = self.model.data.train.next_batch(self.config.batch_size)
                 batch_x=batch_x.reshape(-1,self.config.n_steps,self.config.state_size)
+
                 feed_dict = {self.model.x: batch_x, self.model.y: batch_y, self.model.is_training: True}
                 _,loss,acc=self.sess.run([self.model.train_step,self.model.cross_entropy,self.model.accuracy],
                                      feed_dict=feed_dict)

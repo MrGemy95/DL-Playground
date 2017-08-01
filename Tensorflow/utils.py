@@ -9,7 +9,6 @@ def create_dirs(dirs):
     except Exception as err:
         print("Creating directories error: {0}".format(err))
 class utils:
-    def __init__(self):
-        pass
-    def print_tensor_shape(self,x):
+    @staticmethod
+    def print_tensor_shape(x):
         print (x.get_shape().as_list())

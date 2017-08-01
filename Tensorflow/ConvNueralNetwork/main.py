@@ -1,8 +1,8 @@
 import tensorflow as tf
-from TF.ConvNueralNetwork.model import ConvModel
-from TF.config import ConvConfig
-from TF.utils import create_dirs
-from TF.ConvNueralNetwork.trainer import ConvTrainer
+from Tensorflow.ConvNueralNetwork.model import ConvModel
+from Tensorflow.config import ConvConfig
+from Tensorflow.utils import create_dirs
+from Tensorflow.ConvNueralNetwork.trainer import ConvTrainer
 
 tf.logging.set_verbosity(tf.logging.INFO)
 

@@ -1,9 +1,9 @@
 # From tensorflow official tutorial
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
-from TF.layers import conv, max_pool, dense, flatten,lstm
-from TF.base_model import BaseModel
-
+from Tensorflow.layers import conv, max_pool, dense, flatten,lstm
+from Tensorflow.base_model import BaseModel
+from Tensorflow.utils import utils
 
 class LstmModel(BaseModel):
     def __init__(self,config):
@@ -20,7 +20,8 @@ class LstmModel(BaseModel):
 
         # network_architecture
         l1 = lstm(self.x,self._config.n_steps,self._config.state_size,name='lstm')
-        d1 = tf.layers.dense(l1[-1], 256, name="dense1")
+        utils.print_tensor_shape(l1)
+        d1 = tf.layers.dense(l1[:,-1,:], 256, name="dense1")
         d2 = dense(d1, num_units=10)
 
         with tf.name_scope("loss"):

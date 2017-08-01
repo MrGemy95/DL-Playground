@@ -1,8 +1,8 @@
 import tensorflow as tf
-from TF.LSTM.model import LstmModel
-from TF.config import LstmConfig
-from TF.utils import create_dirs
-from TF.LSTM.trainer import LstmTrainer
+from Tensorflow.LSTM.model import LstmModel
+from Tensorflow.config import LstmConfig
+from Tensorflow.utils import create_dirs
+from Tensorflow.LSTM.trainer import LstmTrainer
 
 tf.logging.set_verbosity(tf.logging.INFO)
 
