@@ -6,3 +6,4 @@ model/
 TF/MNIST_data/
 *.pyc
 .idea
+TF/__pycache__
