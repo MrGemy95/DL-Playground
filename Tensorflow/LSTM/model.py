@@ -26,7 +26,7 @@ class LstmModel(BaseModel):
 
         with tf.name_scope("loss"):
             self.cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=self.y, logits=d2))
-            self.train_step = tf.train.AdamOptimizer(self._config.adam_lr).minimize(self.cross_entropy)
+            self.train_step = tf.train.AdamOptimizer(self._config.lr).minimize(self.cross_entropy)
             correct_prediction = tf.equal(tf.argmax(d2, 1), tf.argmax(self.y, 1))
             self.accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 

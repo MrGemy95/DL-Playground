@@ -24,7 +24,7 @@ class Trainer:
         self.init_global_step()
         self.init_cur_epoch()
         self.init_summaries()
-
+        self.init_image_summary()
         # To initialize all variables
         self.init = tf.group(tf.global_variables_initializer(), tf.local_variables_initializer())
         self.sess.run(self.init)
@@ -95,3 +95,12 @@ class Trainer:
         if summaries_merged is not None:
             self.summary_writer.add_summary(summaries_merged, step)
             self.summary_writer.flush()
+
+    def init_image_summary(self):
+        tag = 'test_images'
+        with tf.variable_scope('test-images-summary'):
+            self.summary_placeholders[tag] = tf.placeholder('float32',
+                                                            [None]+self.config.summary_image_shape,
+                                                            name=tag)
+            self.summary_ops[tag] = tf.summary.image(tag, self.summary_placeholders[tag],
+                                                     max_outputs=self.config.max_images_to_visualize)

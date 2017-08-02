@@ -1,8 +1,8 @@
 import tensorflow as tf
-from Tensorflow.ConvNueralNetwork.model import ConvModel
-from Tensorflow.config import ConvConfig
+from Tensorflow.auto_encoder.model import AutoEncoderModel
+from Tensorflow.config import AutoEncoderConfig
 from Tensorflow.utils import create_dirs
-from Tensorflow.ConvNueralNetwork.trainer import ConvTrainer
+from Tensorflow.auto_encoder.trainer import AutoEncoderTrainer
 
 tf.logging.set_verbosity(tf.logging.INFO)
 
@@ -14,7 +14,15 @@ tf.app.flags.DEFINE_boolean('train_n_test', True, """ whether to Load the Model 
 
 
 def main(_):
-    pass
+    config = AutoEncoderConfig()
+    create_dirs([config.summary_dir])
+    model = AutoEncoderModel(config)
+
+    sess = tf.Session()
+
+    trainer = AutoEncoderTrainer(sess, model,config, FLAGS)
+    if FLAGS.is_train:
+        trainer.train()
 
 
 if __name__ == '__main__':
