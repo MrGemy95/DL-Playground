@@ -3,6 +3,7 @@ from Tensorflow.LSTM.model import LstmModel
 from Tensorflow.config import LstmConfig
 from Tensorflow.utils import create_dirs
 from Tensorflow.LSTM.trainer import LstmTrainer
+from tensorflow.examples.tutorials.mnist import input_data
 
 tf.logging.set_verbosity(tf.logging.INFO)
 
@@ -17,10 +18,11 @@ def main(_):
     config = LstmConfig()
     create_dirs([config.summary_dir])
     model = LstmModel(config)
+    data=input_data.read_data_sets("../Data/MNIST_data/", one_hot=True)
 
     sess = tf.Session()
 
-    trainer = LstmTrainer(sess, model,config, FLAGS)
+    trainer = LstmTrainer(sess, model,data,config, FLAGS)
 
     trainer.train()
 

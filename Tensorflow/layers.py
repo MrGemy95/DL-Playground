@@ -1,29 +1,30 @@
 import tensorflow as tf
 from tensorflow.contrib.layers.python.layers import initializers
+import math
+import numpy as np
 
 
 
 
-
-
-def dense(input_, num_units, activation_fn=None, w_initializer= tf.contrib.layers.xavier_initializer(),
-          b_initializer= tf.constant_initializer(0.0),return_params=False, name='dense'):
-    shape = input_.get_shape().as_list()
-
-    with tf.variable_scope(name):
-        w = tf.get_variable('w', [shape[1], num_units], tf.float32,
-                            initializer=w_initializer)
-        b = tf.get_variable('bias', [num_units],
-                            initializer=b_initializer)
-
-        out = tf.nn.bias_add(tf.matmul(input_, w), b)
-
-        if activation_fn != None:
-            out = activation_fn(out)
-        if return_params:
-            return out, w, b
-        else:
-            return out
+#
+# def dense(input_, num_units, activation_fn=None, w_initializer= tf.contrib.layers.xavier_initializer(),
+#           b_initializer= tf.constant_initializer(0.0),return_params=False, name='dense'):
+#     shape = input_.get_shape().as_list()
+#
+#     with tf.variable_scope(name):
+#         w = tf.get_variable('w', [shape[1], num_units], tf.float32,
+#                             initializer=w_initializer)
+#         b = tf.get_variable('bias', [num_units],
+#                             initializer=b_initializer)
+#
+#         out = tf.nn.bias_add(tf.matmul(input_, w), b)
+#
+#         if activation_fn != None:
+#             out = activation_fn(out)
+#         if return_params:
+#             return out, w, b
+#         else:
+#             return out
 
 def flatten(x):
     return tf.contrib.layers.flatten(x)
@@ -34,8 +35,9 @@ def conv(x,
          kernel_size,
          stride,
          initializer=tf.contrib.layers.xavier_initializer(),
-         activation_fn=tf.nn.relu,return_params=False,
-         padding='VALID',
+         activation_fn=tf.nn.relu,
+         return_params=False,
+         padding='SAME',
          name='conv'):
     with tf.variable_scope(name):
         stride = [ stride[0], stride[1]]

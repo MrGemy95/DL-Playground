@@ -13,18 +13,17 @@ class LstmModel(BaseModel):
         self.summaries=None
     def build_model(self):
         # define the placeholder to pass the data and the ground_truth
-        with tf.name_scope("model"):
 
-            self.is_training = tf.placeholder(tf.bool)
+        self.is_training = tf.placeholder(tf.bool)
 
-            self.x = tf.placeholder(tf.float32, shape=[None,self.config.n_steps,self.config.state_size])
-            self.y = tf.placeholder(tf.float32, shape=[None, 10])
+        self.x = tf.placeholder(tf.float32, shape=[None,self.config.n_steps,self.config.state_size])
+        self.y = tf.placeholder(tf.float32, shape=[None, 10])
 
-            # network_architecture
-            l1 = lstm(self.x, self.config.n_steps, self.config.state_size, name='lstm')
-            utils.print_tensor_shape(l1)
-            d1 = tf.layers.dense(l1[:,-1,:], 256, name="dense1")
-            d2 = dense(d1, num_units=10)
+        # network_architecture
+        l1 = lstm(self.x, self.config.n_steps, self.config.state_size, name='lstm')
+        utils.print_tensor_shape(l1)
+        d1 = tf.layers.dense(l1[:,-1,:], 256, name="dense1")
+        d2 = dense(d1, num_units=10)
 
         with tf.name_scope("loss"):
             self.cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=self.y, logits=d2))

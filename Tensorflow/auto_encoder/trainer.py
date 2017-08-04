@@ -5,8 +5,8 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 
 class AutoEncoderTrainer(Trainer):
-    def __init__(self,sess, model, config,FLAGS):
-        super(AutoEncoderTrainer,self).__init__(sess,model, config,FLAGS)
+    def __init__(self,sess, model,data, config,FLAGS):
+        super(AutoEncoderTrainer,self).__init__(sess,model,data, config,FLAGS)
 
 
     def train(self):
@@ -17,8 +17,8 @@ class AutoEncoderTrainer(Trainer):
             losses=[]
             loop=tqdm(range(self.config.nit_epoch))
             for it in loop:
-                batch_x, _ = self.model.data.train.next_batch(self.config.batch_size)
-
+                batch_x, _ = self.data.train.next_batch(self.config.batch_size)
+                batch_x=batch_x.reshape(([-1]+self.config.state_size))
                 feed_dict = {self.model.x: batch_x, self.model.is_training: True}
                 _,loss=self.sess.run([self.model.train_step,self.model.cross_entropy],
                                      feed_dict=feed_dict)
@@ -33,14 +33,16 @@ class AutoEncoderTrainer(Trainer):
 
             summaries_dict = {}
             summaries_dict['loss'] = loss
-            feed_dict = {self.model.x: self.model.data.test.images[:self.config.num_test]
+
+            #adding test summaries
+            feed_dict = {self.model.x: self.data.test.images[:self.config.batch_size].reshape(([-1]+self.config.state_size))
                         , self.model.is_training: False}
             encode_decode = self.sess.run(
                 self.model.output, feed_dict=feed_dict)
-            #concatinate ground truth with network output
-            concatenated_image=(encode_decode.reshape([-1]+ self.config.state_size),
-             self.model.data.test.images[:self.config.num_test].reshape([-1]+ self.config.state_size))
-            summaries_dict['test_images']=np.concatenate(concatenated_image,axis=2)
+            #concatinate ground truth with network output to visualize
+            concatenated_image=np.concatenate((encode_decode,
+             self.data.test.images[:self.config.batch_size].reshape([-1]+ self.config.state_size)),axis=2)
+            summaries_dict['test_images']=concatenated_image
             self.add_summary(cur_it, summaries_dict=summaries_dict, summaries_merged=self.model.summaries)
 
             print("epoch-" + str(cur_epoch) + "-" + "loss-" + str(loss))

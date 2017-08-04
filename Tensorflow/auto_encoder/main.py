@@ -3,6 +3,7 @@ from Tensorflow.auto_encoder.model import AutoEncoderModel
 from Tensorflow.config import AutoEncoderConfig
 from Tensorflow.utils import create_dirs
 from Tensorflow.auto_encoder.trainer import AutoEncoderTrainer
+from tensorflow.examples.tutorials.mnist import input_data
 
 tf.logging.set_verbosity(tf.logging.INFO)
 
@@ -17,10 +18,11 @@ def main(_):
     config = AutoEncoderConfig()
     create_dirs([config.summary_dir])
     model = AutoEncoderModel(config)
+    data=input_data.read_data_sets("../Data/MNIST_data/", one_hot=True)
 
     sess = tf.Session()
 
-    trainer = AutoEncoderTrainer(sess, model,config, FLAGS)
+    trainer = AutoEncoderTrainer(sess, model,data,config, FLAGS)
     if FLAGS.is_train:
         trainer.train()
 
