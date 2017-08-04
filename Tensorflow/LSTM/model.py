@@ -2,7 +2,7 @@
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 from Tensorflow.layers import conv, max_pool, dense, flatten,lstm
-from Tensorflow.base_model import BaseModel
+from Tensorflow.basic_model import BaseModel
 from Tensorflow.utils import utils
 
 class LstmModel(BaseModel):
@@ -13,20 +13,22 @@ class LstmModel(BaseModel):
         self.summaries=None
     def build_model(self):
         # define the placeholder to pass the data and the ground_truth
-        self.is_training = tf.placeholder(tf.bool)
+        with tf.name_scope("model"):
 
-        self.x = tf.placeholder(tf.float32, shape=[None, 28,28])
-        self.y = tf.placeholder(tf.float32, shape=[None, 10])
+            self.is_training = tf.placeholder(tf.bool)
 
-        # network_architecture
-        l1 = lstm(self.x,self._config.n_steps,self._config.state_size,name='lstm')
-        utils.print_tensor_shape(l1)
-        d1 = tf.layers.dense(l1[:,-1,:], 256, name="dense1")
-        d2 = dense(d1, num_units=10)
+            self.x = tf.placeholder(tf.float32, shape=[None, 28,28])
+            self.y = tf.placeholder(tf.float32, shape=[None, 10])
+
+            # network_architecture
+            l1 = lstm(self.x, self.config.n_steps, self.config.state_size, name='lstm')
+            utils.print_tensor_shape(l1)
+            d1 = tf.layers.dense(l1[:,-1,:], 256, name="dense1")
+            d2 = dense(d1, num_units=10)
 
         with tf.name_scope("loss"):
             self.cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=self.y, logits=d2))
-            self.train_step = tf.train.AdamOptimizer(self._config.lr).minimize(self.cross_entropy)
+            self.train_step = tf.train.AdamOptimizer(self.config.lr).minimize(self.cross_entropy)
             correct_prediction = tf.equal(tf.argmax(d2, 1), tf.argmax(self.y, 1))
             self.accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 

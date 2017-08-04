@@ -42,7 +42,7 @@ def conv(x,
         kernel_shape = [kernel_size[0], kernel_size[1], x.get_shape()[-1], num_filters]
 
         w = tf.get_variable('w', kernel_shape, tf.float32, initializer=initializer)
-        print(stride)
+        print(x)
         conv = tf.nn.convolution(x, w, padding,stride)
 
         b = tf.get_variable('biases', [num_filters], initializer=tf.constant_initializer(0.0))

@@ -2,7 +2,7 @@
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 from Tensorflow.layers import conv, max_pool, dense, flatten
-from Tensorflow.base_model import BaseModel
+from Tensorflow.basic_model import BaseModel
 
 
 class AutoEncoderModel(BaseModel):
@@ -26,7 +26,7 @@ class AutoEncoderModel(BaseModel):
 
         with tf.name_scope("loss"):
             self.cross_entropy = tf.reduce_mean(tf.losses.mean_squared_error(labels=self.x, predictions=self.output))
-            self.train_step = tf.train.RMSPropOptimizer(self._config.lr).minimize(self.cross_entropy)
+            self.train_step = tf.train.RMSPropOptimizer(self.config.lr).minimize(self.cross_entropy)
 
 
 

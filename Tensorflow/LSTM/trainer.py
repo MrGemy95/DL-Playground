@@ -1,6 +1,6 @@
 import numpy as np
 import tensorflow as tf
-from Tensorflow.base_train import Trainer
+from Tensorflow.basic_trainer import Trainer
 from tqdm import tqdm
 
 class LstmTrainer(Trainer):

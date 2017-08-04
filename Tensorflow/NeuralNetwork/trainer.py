@@ -1,12 +1,12 @@
 import numpy as np
 import tensorflow as tf
-from Tensorflow.base_train import Trainer
+from Tensorflow.basic_trainer import Trainer
 from tqdm import tqdm
 
 
 class NeuralTrainer(Trainer):
-    def __init__(self, sess, model, config, FLAGS):
-        super(NeuralTrainer, self).__init__(sess, model, config, FLAGS)
+    def __init__(self, sess, model, data, FLAGS, config):
+        super(NeuralTrainer, self).__init__(sess, model,data, config, FLAGS)
 
     def train(self):
         # i init the epoch as a tensor to be saved in the graph so i can restore it and continue traning
@@ -17,7 +17,7 @@ class NeuralTrainer(Trainer):
             loop = tqdm(range(self.config.nit_epoch))
 
             for it in loop:
-                batch_x, batch_y = self.model.data.train.next_batch(self.config.batch_size)
+                batch_x, batch_y = self.data.train.next_batch(self.config.batch_size)
                 feed_dict = {self.model.x: batch_x, self.model.y: batch_y, self.model.is_training: True}
                 _, loss, acc = self.sess.run([self.model.train_step, self.model.cross_entropy, self.model.accuracy],
                                              feed_dict=feed_dict)

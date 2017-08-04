@@ -3,6 +3,7 @@ from Tensorflow.ConvNueralNetwork.model import ConvModel
 from Tensorflow.config import ConvConfig
 from Tensorflow.utils import create_dirs
 from Tensorflow.ConvNueralNetwork.trainer import ConvTrainer
+from tensorflow.examples.tutorials.mnist import input_data
 
 tf.logging.set_verbosity(tf.logging.INFO)
 
@@ -19,8 +20,9 @@ def main(_):
     model = ConvModel(config)
 
     sess = tf.Session()
+    data=input_data.read_data_sets("../Data/MNIST_data/", one_hot=True)
 
-    trainer = ConvTrainer(sess, model,config, FLAGS)
+    trainer = ConvTrainer(sess, model,data,config, FLAGS)
 
     trainer.train()
 

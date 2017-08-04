@@ -3,6 +3,7 @@ from Tensorflow.NeuralNetwork.model import NeuralModel
 from Tensorflow.config import NeuralConfig
 from Tensorflow.utils import create_dirs
 from Tensorflow.NeuralNetwork.trainer import NeuralTrainer
+from tensorflow.examples.tutorials.mnist import input_data
 
 tf.logging.set_verbosity(tf.logging.INFO)
 
@@ -17,10 +18,10 @@ def main(_):
     config = NeuralConfig()
     create_dirs([config.summary_dir])
     model = NeuralModel(config)
-
+    data=input_data.read_data_sets("../Data/MNIST_data/", one_hot=True)
     sess = tf.Session()
 
-    trainer = NeuralTrainer(sess, model,config, FLAGS)
+    trainer = NeuralTrainer(sess, model, data, FLAGS, config)
 
     trainer.train()
 
