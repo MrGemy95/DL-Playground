@@ -17,7 +17,7 @@ class LstmModel(BaseModel):
 
             self.is_training = tf.placeholder(tf.bool)
 
-            self.x = tf.placeholder(tf.float32, shape=[None, 28,28])
+            self.x = tf.placeholder(tf.float32, shape=[None,self.config.n_steps,self.config.state_size])
             self.y = tf.placeholder(tf.float32, shape=[None, 10])
 
             # network_architecture
