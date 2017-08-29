@@ -2,7 +2,7 @@
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 from Tensorflow.layers import conv, max_pool, deconv, flatten
-from Tensorflow.basic_model import BaseModel
+from Tensorflow.base_model import BaseModel
 
 
 class AutoEncoderModel(BaseModel):

@@ -1,11 +1,11 @@
 import numpy as np
 import tensorflow as tf
-from Tensorflow.basic_trainer import Trainer
+from Tensorflow.base_train import BaseTrain
 from tqdm import tqdm
 
-class LstmTrainer(Trainer):
+class LstmTrain(BaseTrain):
     def __init__(self,sess, model, data,config,FLAGS):
-        super(LstmTrainer, self).__init__(sess, model, data,config, FLAGS)
+        super(LstmTrain, self).__init__(sess, model, data, config, FLAGS)
 
 
     def train(self):
@@ -34,7 +34,7 @@ class LstmTrainer(Trainer):
             summaries_dict = {}
             summaries_dict['loss'] = loss
             summaries_dict['acc'] = acc
-            self.add_summary(cur_it, summaries_dict=summaries_dict, summaries_merged=self.model.summaries)
+            self.add_image_summary(cur_it, summaries_dict=summaries_dict, summaries_merged=self.model.summaries,scope='train')
 
             print("epoch-" + str(cur_epoch) + "-" + "loss-" + str(loss))
             # increment_epoch
@@ -46,5 +46,5 @@ class LstmTrainer(Trainer):
     def test(self):
         feed_dict = {self.model.x: self.data.test.images.reshape(-1,self.config.n_steps,self.config.state_size), self.model.y: self.data.test.labels, self.model.is_training: False}
 
-        print("Test Acc : ", self.sess.run(self.model.accuracy, feed_dict={self.x: self.data.test.images, self.y: self.data.test.labels}),
+        print("Test Acc : ", self.sess.run(self.model.accuracy, feed_dict=feed_dict),
               "% \nExpected to get around 94-98% Acc")
