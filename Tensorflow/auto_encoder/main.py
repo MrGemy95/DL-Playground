@@ -1,10 +1,10 @@
 import tensorflow as tf
 from Tensorflow.auto_encoder.model import AutoEncoderModel
 from Tensorflow.config import AutoEncoderConfig
-from Tensorflow.utils import create_dirs
+from Tensorflow.utils.utils import create_dirs
 from Tensorflow.auto_encoder.train import AutoEncoderTrain
 from tensorflow.examples.tutorials.mnist import input_data
-
+from Tensorflow.auto_encoder.data_generator import GenerateData
 tf.logging.set_verbosity(tf.logging.INFO)
 
 FLAGS = tf.app.flags.FLAGS
@@ -18,7 +18,7 @@ def main(_):
     config = AutoEncoderConfig()
     create_dirs([config.summary_dir])
     model = AutoEncoderModel(config)
-    data=input_data.read_data_sets("../Data/MNIST_data/", one_hot=True)
+    data=GenerateData(config)
 
     sess = tf.Session()
 

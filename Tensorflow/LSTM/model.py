@@ -1,9 +1,11 @@
 # From tensorflow official tutorial
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
-from Tensorflow.layers import conv, max_pool, flatten,lstm
-from Tensorflow.base_model import BaseModel
+
+from Tensorflow.base.base_model import BaseModel
+from Tensorflow.layers import lstm
 from Tensorflow.utils import utils
+
 
 class LstmModel(BaseModel):
     def __init__(self,config):

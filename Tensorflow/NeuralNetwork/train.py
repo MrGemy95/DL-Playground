@@ -1,7 +1,7 @@
 import numpy as np
-import tensorflow as tf
-from Tensorflow.base_train import BaseTrain
 from tqdm import tqdm
+
+from Tensorflow.base.base_train import BaseTrain
 
 
 class NeuralTrain(BaseTrain):

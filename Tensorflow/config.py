@@ -2,8 +2,6 @@
 
 class BaseConfig:
     lr=1e-4
-    scalar_summary_tags = ['loss','acc']
-    image_summary_tags=['test_images']
     checkpoint_dir = './summaries/'
     summary_dir= './summaries/'
     max_to_keep=5
@@ -34,16 +32,13 @@ class LstmConfig(BaseConfig):
     batch_size=32
 
 class AutoEncoderConfig(BaseConfig):
-    state_size=[28,28,1]
+    state_size=[96,96,2]
+    labels_size=[96,96]
     n_epochs=20
-    nit_epoch=1000
+    nit_epoch=100
     lr=.01
     batch_size=32
     num_test=5
-class Experiment1(ConvConfig):
-    pass 
-
-
-
-def get_config():
-    return Experiment1
+    train_ratio=.9
+    states_path='./data/states.npy'
+    dropout_rate=.5

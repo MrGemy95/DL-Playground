@@ -1,7 +1,7 @@
 import tensorflow as tf
 from Tensorflow.NeuralNetwork.model import NeuralModel
 from Tensorflow.config import NeuralConfig
-from Tensorflow.utils import create_dirs
+from Tensorflow.utils.utils import create_dirs
 from Tensorflow.NeuralNetwork.train import NeuralTrain
 from tensorflow.examples.tutorials.mnist import input_data
 

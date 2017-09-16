@@ -1,7 +1,7 @@
 import tensorflow as tf
 from Tensorflow.ConvNueralNetwork.model import ConvModel
 from Tensorflow.config import ConvConfig
-from Tensorflow.utils import create_dirs
+from Tensorflow.utils.utils import create_dirs
 from Tensorflow.ConvNueralNetwork.train import ConvTrain
 from tensorflow.examples.tutorials.mnist import input_data
 

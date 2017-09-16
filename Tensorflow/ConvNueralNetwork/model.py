@@ -1,8 +1,8 @@
 # From tensorflow official tutorial
 import tensorflow as tf
-from tensorflow.examples.tutorials.mnist import input_data
-from Tensorflow.layers import conv, max_pool, flatten
-from Tensorflow.base_model import BaseModel
+
+from Tensorflow.base.base_model import BaseModel
+from Tensorflow.layers import conv, flatten
 
 
 class ConvModel(BaseModel):
