@@ -21,3 +21,6 @@ Tensorflow/__pycache__/
 Tensorflow/auto_encoder/__pycache__/
 Tensorflow/auto_encoder/data/
 Tensorflow/auto_encoder/summaries/
+Tensorflow/base/__pycache__/
+Tensorflow/utils/__pycache__/
+add_auto_encoder_data_generator.patch

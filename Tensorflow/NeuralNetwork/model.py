@@ -1,6 +1,5 @@
 # From tensorflow official tutorial
 import tensorflow as tf
-
 from Tensorflow.base.base_model import BaseModel
 
 
