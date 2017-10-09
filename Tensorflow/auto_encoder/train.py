@@ -46,9 +46,9 @@ class AutoEncoderTrain(BaseTrain):
             # concatinate ground truth with network output to visualize
             concatenated_image = np.concatenate((encode_decode, batch), axis=2)[..., 0, None]
             summaries_images_dict['test_images'] = concatenated_image
-            self.add_scaler_summary(cur_it, summaries_dict=summaries_scalers_dict,
-                                    summaries_merged=self.model.summaries, scope='train')
-            self.add_image_summary(cur_it, summaries_dict=summaries_images_dict, scope='test')
+            self.summarize(cur_it, summaries_dict=summaries_scalers_dict,
+                           summaries_merged=self.model.summaries, scope='train')
+            self.summarize(cur_it, summaries_dict=summaries_images_dict, scope='test')
 
             print("epoch-" + str(cur_epoch) + "-" + "loss-" + str(loss))
             # increment_epoch

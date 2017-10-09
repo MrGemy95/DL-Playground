@@ -2,8 +2,6 @@
 import tensorflow as tf
 
 from Tensorflow.base.base_model import BaseModel
-from Tensorflow.layers import conv, flatten
-
 
 class ConvModel(BaseModel):
     def __init__(self,config):
@@ -19,9 +17,9 @@ class ConvModel(BaseModel):
         self.y = tf.placeholder(tf.float32, shape=[None, 10])
 
         # network_architecture
-        h_conv1 = conv(self.x, num_filters=32, kernel_size=[3, 3], stride=[2, 2], name='conv1')
-        flat = flatten(h_conv1)
-        d1 = tf.layers.dense(flat, 512, activation_fn=tf.nn.relu, name="densee2")
+        h_conv1 = tf.layers.conv2d(self.x, 32, kernel_size=[3, 3], strides=[2, 2], name='conv1')
+        flat = tf.contrib.layers.flatten(h_conv1)
+        d1 = tf.layers.dense(flat, 512, activation=tf.nn.relu, name="densee2")
         d2 = tf.layers.dense(d1, 10)
 
         with tf.name_scope("loss"):
@@ -31,11 +29,3 @@ class ConvModel(BaseModel):
             self.accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
 
-
-
-
-
-
-
-sess = tf.InteractiveSession()
-sess.run(tf.global_variables_initializer())

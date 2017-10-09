@@ -35,7 +35,7 @@ class LstmTrain(BaseTrain):
             summaries_dict = {}
             summaries_dict['loss'] = loss
             summaries_dict['acc'] = acc
-            self.add_image_summary(cur_it, summaries_dict=summaries_dict, summaries_merged=self.model.summaries,scope='train')
+            self.summarize(cur_it, summaries_dict=summaries_dict, summaries_merged=self.model.summaries, scope='train')
 
             print("epoch-" + str(cur_epoch) + "-" + "loss-" + str(loss))
             # increment_epoch

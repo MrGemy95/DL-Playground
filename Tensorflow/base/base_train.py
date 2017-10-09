@@ -76,7 +76,7 @@ class BaseTrain:
                 self.summary_placeholders[tag] = tf.placeholder('float32', None, name=tag)
                 self.summary_ops[tag] = tf.summary.scalar(tag, self.summary_placeholders[tag])
 
-    def add_scaler_summary(self, step, scope=None, summaries_dict=None, summaries_merged=None):
+    def summarize(self, step, scope='train', summaries_dict=None, summaries_merged=None):
         """
         Add the summaries to tensorboard
         :param step:
@@ -90,8 +90,11 @@ class BaseTrain:
                 summary_list = []
                 for tag, value in summaries_dict.items():
                     if tag not in self.summary_ops:
-                        self.summary_placeholders[tag] = tf.placeholder('float32', None, name=tag)
-                        self.summary_ops[tag] = tf.summary.scalar(tag, self.summary_placeholders[tag])
+                        self.summary_placeholders[tag] = tf.placeholder('float32', value.shape, name=tag)
+                        if len(value.shape) <= 1:
+                            self.summary_ops[tag] = tf.summary.scalar(tag, self.summary_placeholders[tag])
+                        else:
+                            self.summary_ops[tag] = tf.summary.image(tag, self.summary_placeholders[tag])
 
                     summary_list.append(self.sess.run(self.summary_ops[tag], {self.summary_placeholders[tag]: value}))
 
@@ -101,26 +104,3 @@ class BaseTrain:
             if summaries_merged is not None:
                 self.summary_writer.add_summary(summaries_merged, step)
                 self.summary_writer.flush()
-
-    def add_image_summary(self, step, scope=None, summaries_dict=None):
-        """
-        Add the summaries to tensorboard
-        :param step:
-        :param summaries_dict:
-        :param summaries_merged:
-        :return:
-        """
-        with tf.variable_scope(scope):
-            if summaries_dict is not None:
-                summary_list = []
-                for tag, value in summaries_dict.items():
-                    if tag not in self.summary_ops:
-                        self.summary_placeholders[tag] = tf.placeholder('float32', value.shape, name=tag)
-                        self.summary_ops[tag] = tf.summary.image(tag, self.summary_placeholders[tag])
-
-                    summary_list.append(self.sess.run(self.summary_ops[tag], {self.summary_placeholders[tag]: value}))
-
-                for summary in summary_list:
-                    self.summary_writer.add_summary(summary, step)
-                self.summary_writer.flush()
-

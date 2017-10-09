@@ -23,7 +23,6 @@ class LstmModel(BaseModel):
 
         # network_architecture
         l1 = lstm(self.x, self.config.n_steps, self.config.state_size, name='lstm')
-        utils.print_tensor_shape(l1)
         d1 = tf.layers.dense(l1[:,-1,:], 256, name="dense1")
         d2 = tf.layers.dense(d1,10)
 
