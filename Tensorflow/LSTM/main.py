@@ -1,9 +1,10 @@
 import tensorflow as tf
-from Tensorflow.LSTM.model import LstmModel
-from Tensorflow.config import LstmConfig
-from Tensorflow.utils.utils import create_dirs
-from Tensorflow.LSTM.train import LstmTrain
 from tensorflow.examples.tutorials.mnist import input_data
+
+from Tensorflow.LSTM.model import LstmModel
+from Tensorflow.LSTM.train import LstmTrain
+from Tensorflow.utils.utils import create_dirs
+from config import LstmConfig
 
 tf.logging.set_verbosity(tf.logging.INFO)
 

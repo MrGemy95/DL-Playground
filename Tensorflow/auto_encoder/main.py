@@ -1,10 +1,11 @@
 import tensorflow as tf
-from Tensorflow.auto_encoder.model import AutoEncoderModel
-from Tensorflow.config import AutoEncoderConfig
-from Tensorflow.utils.utils import create_dirs
-from Tensorflow.auto_encoder.train import AutoEncoderTrain
-from tensorflow.examples.tutorials.mnist import input_data
+
 from Tensorflow.auto_encoder.data_generator import GenerateData
+from Tensorflow.auto_encoder.model import AutoEncoderModel
+from Tensorflow.auto_encoder.train import AutoEncoderTrain
+from Tensorflow.utils.utils import create_dirs
+from config import AutoEncoderConfig
+
 tf.logging.set_verbosity(tf.logging.INFO)
 
 FLAGS = tf.app.flags.FLAGS

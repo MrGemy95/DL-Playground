@@ -12,7 +12,7 @@ TF/__pycache__
 
 *.npy
 /Tensorflow/auto_encoder/summaries/
-Tensorflow/Data/
+Data/
 Tensorflow/LSTM/__pycache__/
 Tensorflow/LSTM/summaries/
 Tensorflow/NeuralNetwork/__pycache__/
