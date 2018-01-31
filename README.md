@@ -10,7 +10,8 @@ A modular implementation of most popular papers and architectures in deep learni
      - [Auto encoder](https://github.com/Mrgemy95/DL-Playground/tree/master/Tensorflow/auto_encoder)
      - [GAN](https://github.com/Mrgemy95/GAN-tensorflow)
  
-- **Pytorch** (in progress)
+- **Pytorch** 
+     - - [Convolutional Neural Network](https://github.com/Mrgemy95/DL-Playground/tree/master/Pytorch) 
   
 ----------
 
