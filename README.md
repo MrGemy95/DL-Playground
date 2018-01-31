@@ -1,6 +1,6 @@
 ****DL-Playground****
 ===================
-A modular implementation of most popular papers and architectures in deep learning. 
+A modular implementation of some popular papers and architectures in deep learning. 
 # **Table of Contents**
 
  - **Tensorflow**
@@ -11,7 +11,7 @@ A modular implementation of most popular papers and architectures in deep learni
      - [GAN](https://github.com/Mrgemy95/GAN-tensorflow)
  
 - **Pytorch** 
-     - - [Convolutional Neural Network](https://github.com/Mrgemy95/DL-Playground/tree/master/Pytorch) 
+     - [Convolutional Neural Network](https://github.com/Mrgemy95/DL-Playground/tree/master/Pytorch) 
   
 ----------
 
